@@ -69,7 +69,7 @@
     .logo {
         width: 200px;
         height: 200px;
-        background-image: url('assets/images/Icon(1).png');
+        background-image: url('assets/images/Icon.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;

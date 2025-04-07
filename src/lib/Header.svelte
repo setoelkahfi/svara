@@ -86,18 +86,21 @@
     </div>
     <div id="window-controls">
         <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
             class="window-button"
             id="minimize"
             on:click={commands.minimizeWindow.command}
         />
         <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
             class="window-button"
             id="maximize"
             on:click={commands.maximizeWindow.command}
         />
         <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
         <div
             class="window-button"
             id="close"
@@ -121,7 +124,7 @@
         min-width: 35px;
         position: relative;
         content: '';
-        background-image: url("/assets/images/Icon\(1\).png");
+        background-image: url("/assets/images/Icon.png");
         background-position: center;
         z-index: 10;
     }

@@ -256,7 +256,7 @@
     #container {
         height: 100%;
         overflow: hidden;
-        background-image: url("/assets/images/Watermark(3).png");
+        background-image: url("/assets/images/Icon.png");
         background-repeat: no-repeat;
         background-position: center;
     }
