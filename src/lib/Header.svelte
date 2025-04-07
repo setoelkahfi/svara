@@ -42,12 +42,6 @@
             {name: "Stop File", disabled: true,  shortcut: commands.stopFile.keybind, action: commands.stopFile.command},
             {name: "Open Configurations", disabled: true,  shortcut: "", action: () => {console.warn("Feature not implemented yet.")}},
         ]},
-        {menuname: "Window", children: [
-            {name: "New Window", disabled: true,  shortcut: commands.openNewWindow.keybind, action: commands.openNewWindow.command},
-            {name: "Minimize Window", shortcut: commands.minimizeWindow.keybind, action: commands.minimizeWindow.command},
-            {name: "Maximize Window", shortcut: commands.maximizeWindow.keybind, action: commands.maximizeWindow.command},
-            {name: "Close Window", shortcut: commands.closeWindow.keybind, action: commands.closeWindow.command},
-        ]},
         {menuname: "Help", children: [
             {name: "Welcome", shortcut: "", action: () => {addTab("Welcome", "Welcome", new Welcome({target: document.getElementById("tabview")}))}},
             {name: "Send Feedback", disabled: true,  shortcut: "", action: () => {console.warn("Feature not implemented yet.")}},
