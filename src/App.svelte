@@ -63,7 +63,7 @@
         updateTablistWidth,
     } from "./lib/EditorTabList.svelte";
     import { onMount } from "svelte";
-    import { appWindow } from "@tauri-apps/api/window";
+    import { Window } from "@tauri-apps/api/window";
     import { writable } from "svelte/store";
     import InputModal from "./lib/Modals/InputModal.svelte";
     import RenameModal from "./lib/Modals/RenameModal.svelte";
@@ -79,15 +79,16 @@
         addNotification,
         toasts,
     } from "./lib/Notifications/notifications";
-    import { shell } from "@tauri-apps/api";
     import { addTab } from "./lib/EditorTabList.svelte";
     import Welcome from "./lib/Welcome.svelte";
+    import { openUrl } from '@tauri-apps/plugin-opener';
 
     let resolution = writable(0);
 
     let minPanelSize = 10;
     let panelSize = 15;
     let bottomPanelSize = 20;
+    let appWindow = new Window("main");
 
     onMount(async () => {
         await getExtensions();
@@ -114,15 +115,13 @@
                 {
                     label: "Learn More",
                     action: () => {
-                        shell.open("https://github.com/setoelkahfi/svara");
+                        openUrl("https://github.com/setoelkahfi/svara");
                     },
                 },
                 {
                     label: "Create Issue",
                     action: () => {
-                        shell.open(
-                            "https://github.com/setoelkahfi/svara/issues/new/choose"
-                        );
+                        openUrl("https://github.com/setoelkahfi/svara/issues/new/choose");
                     },
                 },
             ],
