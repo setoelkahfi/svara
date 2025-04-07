@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { appWindow } from "@tauri-apps/api/window";
+    import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
+const appWindow = getCurrentWebviewWindow()
 
     export let items = [];
     export let target: HTMLElement = null;

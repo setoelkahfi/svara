@@ -19,7 +19,7 @@ use tauri::{App, Manager, Wry};
 use encoding::BOM;
 use log::{error, info, Level};
 use tauri::plugin::TauriPlugin;
-use tauri_plugin_log::{LogTarget, RotationStrategy};
+use tauri_plugin_log::{RotationStrategy};
 use crate::encoding::convert_to_u16;
 
 mod encoding;

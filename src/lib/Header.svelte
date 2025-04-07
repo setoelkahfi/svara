@@ -6,8 +6,9 @@
     import { addTab, tabs, closeActiveTab } from "../lib/EditorTabList.svelte";
     import { workspaceName } from "./File";
     import { commands } from "../config/commands";
-    import { shell } from "@tauri-apps/api";
+    import {  } from "@tauri-apps/api";
     import { openLogFiles } from "../config/config";
+import * as shell from "@tauri-apps/plugin-shell"
 
     const items = [
         {menuname: "File", children: [

@@ -5,7 +5,8 @@
     import Button from "../utility/Button.svelte";
     import { _openPopup } from "../../App.svelte";
     import { checkValidFileName } from "../File";
-    import { fs, invoke, path as p } from "@tauri-apps/api";
+    import {  invoke, path as p } from "@tauri-apps/api";
+import * as fs from "@tauri-apps/plugin-fs"
 
     export let title;
     export let buttons;

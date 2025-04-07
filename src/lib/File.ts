@@ -1,14 +1,17 @@
-import { dialog, fs, path, invoke, window, clipboard } from "@tauri-apps/api";
+import {   path, invoke, webviewWindow,  } from "@tauri-apps/api";
 import { get, writable } from 'svelte/store';
 import { tabs, addEditorTab, renameTab, closeTab, refreshTabs, closeAllTabs } from "./EditorTabList.svelte";
 import { filetree } from "./FileTree.svelte";
-import { watchImmediate } from "tauri-plugin-fs-watch-api";
+import { watchImmediate } from "@tauri-apps/plugin-fs";
 import { openFileTree } from "./Sidebar.svelte";
 import { info, trace, warn, error } from "tauri-plugin-log-api";
 import { homeDir } from "@tauri-apps/api/path";
 import { appSettings } from "../config/config";
 import { closeBottomPanel } from "./Statusbar.svelte";
 import { closeTerminal } from "./Terminal.svelte";
+import * as dialog from "@tauri-apps/plugin-dialog"
+import * as fs from "@tauri-apps/plugin-fs"
+import * as clipboard from "@tauri-apps/plugin-clipboard-manager"
 
 export async function openFile() {
     let newPath = await dialog.open() as string;

@@ -3,9 +3,10 @@
     import ContextMenu from "./utility/ContextMenu.svelte";
     import { addEditorTab } from "./EditorTabList.svelte";
     import { openFolderDialog, pasteFile } from "./File";
-    import { clipboard } from "@tauri-apps/api";
+    import {  } from "@tauri-apps/api";
     import Button from "./utility/Button.svelte";
     import { commands } from "../config/commands";
+import * as clipboard from "@tauri-apps/plugin-clipboard-manager"
 
     let treeDom;
     let contextmenu = false;

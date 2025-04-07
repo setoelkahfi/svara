@@ -1,9 +1,10 @@
 import { writable } from "svelte/store";
 import Editor from "../Editor.svelte";
-import { dialog, invoke } from "@tauri-apps/api";
+import {  invoke } from "@tauri-apps/api";
 import { saveFile } from "../File";
 import { warn } from "tauri-plugin-log-api";
 import { appSettings } from "../../config/config";
+import * as dialog from "@tauri-apps/plugin-dialog"
 
 export class Tab {
     id = 0;

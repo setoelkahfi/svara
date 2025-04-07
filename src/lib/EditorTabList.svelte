@@ -5,9 +5,10 @@
     import NotSupported from "./utility/NotSupported.svelte";
     import { Tab } from "./Tab/Tab";
     import { afterUpdate, onMount } from "svelte";
-    import { appWindow } from "@tauri-apps/api/window";
+    import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
     import { writable } from "svelte/store";
     import { invoke } from "@tauri-apps/api";
+const appWindow = getCurrentWebviewWindow()
 
     onMount(() => {
         appWindow.onResized(() => {

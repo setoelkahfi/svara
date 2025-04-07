@@ -1,11 +1,13 @@
-import { fs, path as p } from "@tauri-apps/api";
+import {  path as p } from "@tauri-apps/api";
 import { openInputModal, openRenameModal } from "../App.svelte";
 import { addEditorTab, closeAllTabs } from "../lib/EditorTabList.svelte";
 import { saveFile, openFile, openFolderDialog, openInExplorer, renameFile, createFolder, createFile } from "../lib/File";
-import { appWindow } from "@tauri-apps/api/window";
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { info, warn } from "tauri-plugin-log-api";
 import { fitTerminal } from "../lib/Terminal.svelte";
-import { exit } from "@tauri-apps/api/process";
+import { exit } from "@tauri-apps/plugin-process";
+import * as fs from "@tauri-apps/plugin-fs"
+const appWindow = getCurrentWebviewWindow()
 
 export const commands = {
     "addEditorTab": {
