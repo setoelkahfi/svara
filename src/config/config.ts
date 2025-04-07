@@ -1,7 +1,7 @@
 import { writable } from "svelte/store";
 import Mousetrap  from "mousetrap";
 import { getKeybinds } from "./commands";
-import {  invoke, path } from "@tauri-apps/api";
+import { path } from "@tauri-apps/api";
 import { loadTheme } from "./themehandler";
 import { Store } from "@tauri-apps/plugin-store";
 import { setEditorFontFamily, setEditorFontSize, setEditorLineHeight, setEditorTabSize } from "../lib/Editor.svelte";
@@ -10,6 +10,7 @@ import { info } from "tauri-plugin-log-api";
 import { setTerminalState } from "../lib/Statusbar.svelte";
 import { termOptions, updateTermOptions } from "../lib/Terminal.svelte";
 import * as fs from "@tauri-apps/plugin-fs"
+import { invoke } from "@tauri-apps/api/core";
 
 export const systemfonts = writable([]);
 export const editorfont = writable("");

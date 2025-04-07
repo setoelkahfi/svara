@@ -4,7 +4,7 @@ version = "0.4.0"
 description = "Svara is a simple and lightweight code editor for Linux, Windows, and MacOS."
 authors = ["mellobacon", "setoelkahfi"]
 license = "GPL-3.0"
-repository = ""
+repository = "https://github.com/setoelkahfi/svara"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -24,9 +24,9 @@ infer = "0.3"
 tokio = { version = "1", features = ["time"] }
 tauri-plugin-pty = "0.1.0"
 tauri-plugin-process = "2"
-#tauri-plugin-fs-watch = { version = "1" }
 tauri-plugin-store = { version = "2" }
 tauri-plugin-log = { version = "2" }
+tauri-plugin-fs = { version = "2", features = ["watch"] }
 
 [features]
 # by default Tauri runs in production mode

@@ -7,7 +7,7 @@
     import { afterUpdate, onMount } from "svelte";
     import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
     import { writable } from "svelte/store";
-    import { invoke } from "@tauri-apps/api";
+    import { invoke } from "@tauri-apps/api/core";
 const appWindow = getCurrentWebviewWindow()
 
     onMount(() => {

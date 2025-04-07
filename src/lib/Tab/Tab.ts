@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import Editor from "../Editor.svelte";
-import {  invoke } from "@tauri-apps/api";
+import {  invoke } from "@tauri-apps/api/core";
 import { saveFile } from "../File";
 import { warn } from "tauri-plugin-log-api";
 import { appSettings } from "../../config/config";

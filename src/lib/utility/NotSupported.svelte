@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { invoke } from "@tauri-apps/api";
+    import { invoke } from "@tauri-apps/api/core";
     import EditOff from "carbon-icons-svelte/lib/EditOff.svelte";
     export let hidden = false;
     export let path = "";

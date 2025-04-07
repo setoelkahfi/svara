@@ -4,7 +4,7 @@
     import { getVersion } from '@tauri-apps/api/app';
     import { onMount } from "svelte";
     import { Terminal as TerminalIcon, Notification as NotificationIcon, TrashCan } from "carbon-icons-svelte";
-    import { invoke } from "@tauri-apps/api";
+    import { invoke } from "@tauri-apps/api/core";
     import Terminal, { clearTerminal, closeTerminal } from "./Terminal.svelte";
     import { workingDir } from "./File";
     import NotificationList from "./Notifications/NotificationList.svelte";

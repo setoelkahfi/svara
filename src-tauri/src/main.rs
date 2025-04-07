@@ -4,23 +4,26 @@
 )]
 
 #[cfg(debug_assertions)]
-const LOG_TARGETS: [tauri_plugin_log::TargetKind; 2] = [tauri_plugin_log::TargetKind::Stdout, tauri_plugin_log::TargetKind::Webview];
+const LOG_TARGETS: [tauri_plugin_log::TargetKind; 2] = [
+    tauri_plugin_log::TargetKind::Stdout,
+    tauri_plugin_log::TargetKind::Webview,
+];
 
 #[cfg(not(debug_assertions))]
 const LOG_TARGETS: [Target; 2] = [Target::Stdout, Target::LogDir];
 
+use crate::encoding::convert_to_u16;
+use encoding::BOM;
+use log::{error, info, Level};
 use std::collections::{self, HashMap};
 use std::fs::File;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::{env, fs};
-use tauri::{App, Manager, Wry};
-use encoding::BOM;
-use log::{error, info, Level};
 use tauri::plugin::TauriPlugin;
-use tauri_plugin_log::{Target, RotationStrategy};
-use crate::encoding::convert_to_u16;
+use tauri::{App, Manager, Wry};
+use tauri_plugin_log::{RotationStrategy, Target};
 
 mod encoding;
 
@@ -38,7 +41,7 @@ fn open_in_explorer(path: &str) {
 }
 
 #[tauri::command]
-fn open_in_default(path: &str)  {
+fn open_in_default(path: &str) {
     if env::consts::OS == "windows" {
         Command::new("powershell")
             .args(["&", path])
@@ -54,15 +57,14 @@ fn open_terminal(path: &str) {
         // programs for ubuntu: [gnome-terminal]
         // .args(["/C", "start", "wt"])
         Command::new("cmd")
-        .args(["/C", "wt", "-d", path])
-        .spawn()
-        .unwrap();
-    }
-    else {
+            .args(["/C", "wt", "-d", path])
+            .spawn()
+            .unwrap();
+    } else {
         Command::new("gnome-terminal")
-        .arg(format!("--working-directory={}", path).as_str())
-        .spawn()
-        .unwrap();
+            .arg(format!("--working-directory={}", path).as_str())
+            .spawn()
+            .unwrap();
     }
 }
 
@@ -128,7 +130,7 @@ struct FileData {
     encoding: String,
     extension: String,
     bom: bool,
-    spaces: usize
+    spaces: usize,
 }
 
 #[tauri::command]
@@ -144,9 +146,7 @@ fn read_file(path: &str) -> FileData {
     }
 
     let ext = match Path::new(path).extension() {
-        Some(v) => {
-            v.to_str().unwrap()
-        }
+        Some(v) => v.to_str().unwrap(),
         None => {
             error!("No extension found for {}", path);
             ""
@@ -164,7 +164,7 @@ fn read_file(path: &str) -> FileData {
         let spaces = detect_indent(&lines);
         let space_count = match spaces {
             Some(capture) => capture,
-            None => 0
+            None => 0,
         };
 
         file_data = FileData {
@@ -172,7 +172,7 @@ fn read_file(path: &str) -> FileData {
             encoding: encoding.name().to_string(),
             extension: ext.to_string(),
             bom: true,
-            spaces: space_count
+            spaces: space_count,
         };
         info!("File BOM found. Encoding with {}...", encoding.name());
     } else {
@@ -183,7 +183,7 @@ fn read_file(path: &str) -> FileData {
         let spaces = detect_indent(&lines);
         let space_count = match spaces {
             Some(capture) => capture,
-            None => 0
+            None => 0,
         };
 
         file_data = FileData {
@@ -191,7 +191,7 @@ fn read_file(path: &str) -> FileData {
             encoding: encoding.name().to_string(),
             extension: ext.to_string(),
             bom: false,
-            spaces: space_count
+            spaces: space_count,
         };
         info!(
             "No file BOM found. Defaulting to {} encoding...",
@@ -243,15 +243,12 @@ fn is_supported(path: &str) -> bool {
             let mut supported = false;
             if info.mime_type().contains("text") {
                 supported = true;
-            }
-            else {
+            } else {
                 info!("File type detected: {}. Must be binary.", info.mime_type());
             }
             supported
         }
-        Ok(None) => {
-            true
-        }
+        Ok(None) => true,
         Err(e) => {
             error!("{}", e);
             false
@@ -293,15 +290,17 @@ fn configure_log() -> TauriPlugin<Wry> {
                 "[[[year]-[month]-[day]][[[hour]:[minute]:[second]]",
             )
             .unwrap();
-            let file_info = record.file().map(|location| format!("::{}", location.split("\\").last().unwrap().to_owned()))
+            let file_info = record
+                .file()
+                .map(|location| format!("::{}", location.split("\\").last().unwrap().to_owned()))
                 .unwrap_or("".to_string());
-            let line_info =  record.line().map(|line| format!(":{}", line))
+            let line_info = record
+                .line()
+                .map(|line| format!(":{}", line))
                 .unwrap_or("".to_string());
             out.finish(format_args!(
                 "{}[{}][{}{}{}] {}",
-                time::OffsetDateTime::now_utc()
-                    .format(&format)
-                    .unwrap(),
+                time::OffsetDateTime::now_utc().format(&format).unwrap(),
                 record.level(),
                 record.target(),
                 file_info,
@@ -314,8 +313,7 @@ fn configure_log() -> TauriPlugin<Wry> {
             let mut filter = false;
             if cfg!(debug_assertions) {
                 filter = !matches!(l.level(), Level::Trace);
-            }
-            else if cfg!(not(debug_assertions)) {
+            } else if cfg!(not(debug_assertions)) {
                 filter = !matches!(l.level(), Level::Trace | Level::Debug);
             }
             filter
@@ -332,11 +330,9 @@ fn configure_log_path(app: &mut App) {
     }
 
     let format = time::format_description::parse("[year]-[month]-[day]-[hour][minute]").unwrap();
-    let time = time::OffsetDateTime::now_utc()
-        .format(&format)
-        .unwrap();
+    let time = time::OffsetDateTime::now_utc().format(&format).unwrap();
     let log_name = format!("svara_log-{}.log", time);
-    
+
     // changing the default log name to something more meaningful
     let new_log_path = app_log_dir.join(log_name);
     if let Err(e) = fs::rename(&old_log_path, &new_log_path) {
@@ -430,6 +426,7 @@ fn main() {
     }));
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
         .invoke_handler(tauri::generate_handler![
             open_in_explorer,
             delete_file,
@@ -442,7 +439,7 @@ fn main() {
             is_supported,
             open_terminal
         ])
-        //.plugin(tauri_plugin_fs_watch::init())
+        .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(configure_log())
         .plugin(tauri_plugin_pty::init())
