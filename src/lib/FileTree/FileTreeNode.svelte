@@ -20,8 +20,8 @@
     import ContextMenu from "../utility/ContextMenu.svelte";
     import { moveToTrash, openInExplorer, renameFile } from "../File";
     import { addEditorTab } from "../EditorTabList.svelte";
-    import { clipboard } from "@tauri-apps/api";
     import { commands } from "../../config/commands";
+    import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 
     export let id;
     export let name;
@@ -39,9 +39,9 @@
     let contextmenu = false;
     let contextmenuitems = [
         {name: "Open in File Explorer", shortcut: commands.openInExplorer.keybind, action: async () => {commands.openInExplorer.command(path)}},
-        {name: "Copy", shortcut: "Ctrl + C", action: async () => {await clipboard.writeText(path)}},
+        {name: "Copy", shortcut: "Ctrl + C", action: async () => {await writeText(path)}},
         {name: "Cut", shortcut: "Ctrl + X", action: () => {console.warn("Feature not implemented yet.")}},
-        {name: "Copy Filename", shortcut: "", action: async () => {await clipboard.writeText(name)}},
+        {name: "Copy Filename", shortcut: "", action: async () => {await writeText(name)}},
         {name: "Edit", shortcut: "", action: () => {addEditorTab(path, name)}},
         {name: "Rename...", shortcut: commands.renameFile.keybind, action: () => {commands.renameFile.command(name, path)}},
         {name: "Delete", shortcut: "Delete", action: async () => {await moveToTrash(path)}}

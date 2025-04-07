@@ -11,9 +11,9 @@
     import {filetree} from "../FileTree.svelte";
     import ContextMenu from "../utility/ContextMenu.svelte";
     import { moveFile, moveToTrash, pasteFile } from "../File";
-    import { clipboard } from "@tauri-apps/api";
     import { onMount } from "svelte";
     import { commands } from "../../config/commands";
+    import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 
     export let root = false;
     export let isroot = false;
@@ -40,10 +40,10 @@
         {name: "Open in File Explorer", shortcut: commands.openInExplorer.keybind, action: async () => commands.openInExplorer.command(path)},
         {name: "New Folder...", shortcut: "", action: () => commands.createFolder.command(path)},
         {name: "New File...", shortcut: "", action: () => commands.createFile.command(path)},
-        {name: "Copy", shortcut: "Ctrl + C", action: async () => {await clipboard.writeText(path)}},
+        {name: "Copy", shortcut: "Ctrl + C", action: async () => {await writeText(path)}},
         {name: "Cut", disabled: isroot, shortcut: "Ctrl + X", action: () => {console.warn("Feature not implemented yet.")}},
         {name: "Paste", shortcut: "Ctrl + V", action: async () => {await pasteFile(path)}},
-        {name: "Copy Filename", shortcut: "", action: async () => {await clipboard.writeText(name)}},
+        {name: "Copy Filename", shortcut: "", action: async () => {await writeText(name)}},
         {name: "Rename...", disabled: isroot, shortcut: commands.renameFile.keybind, action: () => {commands.renameFile.command(name, path)}},
         {name: "Delete", disabled: isroot, shortcut: "Delete", action:  async () => {await moveToTrash(path)}}
     ]

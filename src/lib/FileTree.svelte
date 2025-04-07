@@ -6,7 +6,7 @@
     import {  } from "@tauri-apps/api";
     import Button from "./utility/Button.svelte";
     import { commands } from "../config/commands";
-import * as clipboard from "@tauri-apps/plugin-clipboard-manager"
+    import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 
     let treeDom;
     let contextmenu = false;
@@ -31,10 +31,10 @@ import * as clipboard from "@tauri-apps/plugin-clipboard-manager"
         {name: "Open in File Explorer", shortcut: "", action: async () => commands.openInExplorer.command(path)},
         {name: "New Folder...", shortcut: "", action: () => commands.createFolder.command(path)},
         {name: "New File...", shortcut: "", action: () => {commands.createFile.command(path)}},
-        {name: "Copy", shortcut: "Ctrl + C", action: async () => {await clipboard.writeText(path)}},
+        {name: "Copy", shortcut: "Ctrl + C", action: async () => {await writeText(path)}},
         {name: "Cut", disabled: true, shortcut: "Ctrl + X", action: () => {console.warn("Feature not implemented yet.")}},
         {name: "Paste", shortcut: "Ctrl + V", action: async () => {await pasteFile(path)}},
-        {name: "Copy Filename", shortcut: "", action: async () => {await clipboard.writeText(name)}},
+        {name: "Copy Filename", shortcut: "", action: async () => {await writeText(name)}},
         {name: "Rename...", shortcut: "F2", disabled: true, action: () => {console.warn("Feature not implemented yet.")}},
         {name: "Delete", disabled: true, shortcut: "Delete", action: () => {console.warn("Feature not implemented yet.")}}
     ]

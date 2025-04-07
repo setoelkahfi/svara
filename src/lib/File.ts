@@ -11,8 +11,8 @@ import { closeBottomPanel } from "./Statusbar.svelte";
 import { closeTerminal } from "./Terminal.svelte";
 import * as dialog from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
-import * as clipboard from "@tauri-apps/plugin-clipboard-manager"
 import { invoke } from "@tauri-apps/api/core";
+import { readText } from '@tauri-apps/plugin-clipboard-manager';
 
 export async function openFile() {
     let newPath = await dialog.open() as string;
@@ -301,7 +301,7 @@ export async function readFile(path) {
 }
 
 export async function pasteFile(dest) {
-    const copied = await clipboard.readText();
+    const copied = await readText();
     const filename = copied.split(path.sep).pop();
     let newpath = `${dest}${path.sep}${filename}`;
     if (!await fs.exists(copied) || await fs.exists(newpath))

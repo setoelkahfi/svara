@@ -3,7 +3,7 @@ import Mousetrap  from "mousetrap";
 import { getKeybinds } from "./commands";
 import { path } from "@tauri-apps/api";
 import { loadTheme } from "./themehandler";
-import { Store } from "@tauri-apps/plugin-store";
+import { load, Store } from "@tauri-apps/plugin-store";
 import { setEditorFontFamily, setEditorFontSize, setEditorLineHeight, setEditorTabSize } from "../lib/Editor.svelte";
 import { watch } from "@tauri-apps/plugin-fs";
 import { info } from "tauri-plugin-log-api";
@@ -77,12 +77,12 @@ export let appSettings: Store;
 
 export async function loadDefaultSettings() {
     const appdataLocal = await path.appLocalDataDir();
-    appSettings = new Store(`${appdataLocal}default_settings.json`);
+    appSettings = await load(`${appdataLocal}default_settings.json`);
 
     await watch(
         `${appdataLocal}default_settings.json`,
         () => {
-            appSettings.load();
+            appSettings;
         }
     )
 
