@@ -407,14 +407,19 @@ fn load_settings(app: &mut App) {
             .or_insert_with(|| settings.1.clone());
     }
 
-    let mut settings_store = tauri_plugin_store::StoreBuilder::new(app.handle(), settings_path)
+    let mut settings_store = match tauri_plugin_store::StoreBuilder::new(app.handle(), settings_path)
         .defaults(defaults)
-        .build();
+        .build() {
+        Ok(store) => store,
+        Err(e) => {
+            error!("Failed to create settings store: {}", e);
+            return;
+        }
+    };
 
-    /*
-    if let Err(e) = settings_store.load() {
+    if let Err(e) = settings_store.reload() {
         error!("Failed to load settings: {}", e);
-    } */
+    }
 }
 
 fn main() {

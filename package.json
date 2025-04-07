@@ -36,9 +36,10 @@
     "sortablejs": "^1.15.6",
     "svelte-splitpanes": "^8.0.9",
     "tauri-plugin-log-api": "github:tauri-apps/tauri-plugin-log#v1",
-    "tauri-pty": "^0.0.8"
+    "tauri-pty": "0.1.0"
   },
   "devDependencies": {
+    "@sveltejs/adapter-static": "^3.0.8",
     "@sveltejs/vite-plugin-svelte": "^2.5.3",
     "@tauri-apps/cli": "^2.4.1",
     "@tsconfig/svelte": "^4.0.1",
