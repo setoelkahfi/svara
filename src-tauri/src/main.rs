@@ -4,10 +4,10 @@
 )]
 
 #[cfg(debug_assertions)]
-const LOG_TARGETS: [LogTarget; 2] = [LogTarget::Stdout, LogTarget::Webview];
+const LOG_TARGETS: [tauri_plugin_log::TargetKind; 2] = [tauri_plugin_log::TargetKind::Stdout, tauri_plugin_log::TargetKind::Webview];
 
 #[cfg(not(debug_assertions))]
-const LOG_TARGETS: [LogTarget; 2] = [LogTarget::Stdout, LogTarget::LogDir];
+const LOG_TARGETS: [Target; 2] = [Target::Stdout, Target::LogDir];
 
 use std::collections::{self, HashMap};
 use std::fs::File;
@@ -19,7 +19,7 @@ use tauri::{App, Manager, Wry};
 use encoding::BOM;
 use log::{error, info, Level};
 use tauri::plugin::TauriPlugin;
-use tauri_plugin_log::{RotationStrategy};
+use tauri_plugin_log::{Target, RotationStrategy};
 use crate::encoding::convert_to_u16;
 
 mod encoding;
@@ -90,7 +90,7 @@ fn is_folder(path: &str) -> bool {
 
 #[tauri::command]
 fn attempt_file_access(app_handle: tauri::AppHandle, p: &str) {
-    app_handle.fs_scope().allow_directory(p, true).unwrap();
+    // app_handle.fs_scope().allow_directory(p, true).unwrap();
 }
 
 #[tauri::command]
@@ -309,7 +309,7 @@ fn configure_log() -> TauriPlugin<Wry> {
                 message
             ))
         })
-        .targets(LOG_TARGETS)
+        // .targets(LOG_TARGETS)
         .filter(|l| {
             let mut filter = false;
             if cfg!(debug_assertions) {
@@ -325,7 +325,7 @@ fn configure_log() -> TauriPlugin<Wry> {
 }
 
 fn configure_log_path(app: &mut App) {
-    let app_log_dir = tauri::api::path::app_log_dir(&app.config()).unwrap();
+    let app_log_dir = app.path().app_log_dir().unwrap();
     let old_log_path = app_log_dir.join("svara.log");
     if !Path::exists(&old_log_path) {
         return;
@@ -369,9 +369,9 @@ fn load_settings(app: &mut App) {
         }
     );
 
-    let appdata_local = match tauri::api::path::app_local_data_dir(&app.config()) {
-        Some(path) => path,
-        None => {
+    let appdata_local = match app.path().local_data_dir() {
+        Ok(path) => path,
+        Err(err) => {
             error!("Failed to get app local data directory");
             return;
         }
@@ -415,9 +415,10 @@ fn load_settings(app: &mut App) {
         .defaults(defaults)
         .build();
 
+    /*
     if let Err(e) = settings_store.load() {
         error!("Failed to load settings: {}", e);
-    }
+    } */
 }
 
 fn main() {
@@ -441,7 +442,7 @@ fn main() {
             is_supported,
             open_terminal
         ])
-        .plugin(tauri_plugin_fs_watch::init())
+        //.plugin(tauri_plugin_fs_watch::init())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(configure_log())
         .plugin(tauri_plugin_pty::init())
