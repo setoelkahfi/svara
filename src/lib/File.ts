@@ -170,7 +170,7 @@ export async function moveFile(source: string, dest: string, file: string) {
         return;
     }
     const filename = file.split(path.sep).pop();
-    if (!await dialog.confirm(`Are you sure you want to move "${filename}" from "./${source.split(path.sep).pop()}" into "./${dest.split(path.sep).pop()}?"`, {title: "Nucleus: Move File"})) {
+    if (!await dialog.confirm(`Are you sure you want to move "${filename}" from "./${source.split(path.sep).pop()}" into "./${dest.split(path.sep).pop()}?"`, {title: "Svara: Move File"})) {
         return;
     }
 
@@ -304,7 +304,7 @@ export async function pasteFile(dest) {
         return
     const fileData = await readFile(copied);
 
-    if (!await dialog.confirm(`Are you sure you want to copy "${filename}" from "./${copied.split(path.sep).pop()}" into "./${dest.split(path.sep).pop()}?"`, {title: "Nucleus: Move File"})) {
+    if (!await dialog.confirm(`Are you sure you want to copy "${filename}" from "./${copied.split(path.sep).pop()}" into "./${dest.split(path.sep).pop()}?"`, {title: ": Move File"})) {
         return;
     }
     try {

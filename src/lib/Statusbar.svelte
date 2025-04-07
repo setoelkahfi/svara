@@ -110,7 +110,7 @@
 
 <div id="statusbar">
     <div id="title">
-        <span>Nucleus <span id="version">v{appVersion}-alpha</span></span>
+        <span>Svara<span id="version">v{appVersion}-alpha</span></span>
         <div class="divider"></div>
     </div>
     <div class="editor-tools">

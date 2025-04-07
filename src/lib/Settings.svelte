@@ -13,7 +13,7 @@
     let editorFontFamily;
     let editorLineHeight;
     let editorTabSize;
-    let nucleusTheme;
+    let svaraTheme;
     let editorAutosave;
     let externalTerminal;
     let terminalOptions = {"fontWeight": "", "fontSize": "", "fontFamily": "", "lineHeight": "", "cursorStyle": ""};
@@ -23,8 +23,8 @@
         editorLineHeight = await appSettings.get("editor.lineHeight");
         editorTabSize = await appSettings.get("editor.tabSize");
         editorAutosave = await appSettings.get("editor.autosave");
-        nucleusTheme = await appSettings.get("nucleus.theme");
-        externalTerminal = await appSettings.get("nucleus.useExternalTerminal");
+        svaraTheme = await appSettings.get("svara.theme");
+        externalTerminal = await appSettings.get("svara.useExternalTerminal");
         terminalOptions = await appSettings.get("terminal.internal");
     })
 
@@ -33,7 +33,7 @@
         await appSettings.save();
     }
     async function handleThemeSelect(e) {
-        await appSettings.set("nucleus.theme", e.detail.selection.name);
+        await appSettings.set("svara.theme", e.detail.selection.name);
         await appSettings.save();
     }
     async function handleEditorFontSize(e) {
@@ -53,7 +53,7 @@
         await appSettings.save();
     }
     async function handleTerminal(e) {
-        await appSettings.set("nucleus.useExternalTerminal", e.detail.selection.name);
+        await appSettings.set("svara.useExternalTerminal", e.detail.selection.name);
         await appSettings.save();
     }
     async function handleTerminalFontSize(e) {
@@ -105,7 +105,7 @@
             <div class="settings-category">
                 <div class="heading">General</div>
                 <div class="content">
-                    <Select label="Theme" items={getThemes()} selected={nucleusTheme} on:select={handleThemeSelect}></Select>
+                    <Select label="Theme" items={getThemes()} selected={svaraTheme} on:select={handleThemeSelect}></Select>
                 </div>
             </div>
             <div class="settings-category">

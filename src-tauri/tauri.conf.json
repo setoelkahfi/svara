@@ -1,13 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/1.5.4/tooling/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "yarn build",
-    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "pnpm build",
+    "beforeDevCommand": "pnpm dev",
     "devPath": "http://localhost:8080",
     "distDir": "../dist"
   },
   "package": {
-    "productName": "nucleus",
+    "productName": "Svara",
     "version": "0.4.0"
   },
   "tauri": {
@@ -100,7 +100,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.nucleus.app",
+      "identifier": "com.svara.app",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -133,7 +133,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "Nucleus",
+        "title": "Svara",
         "width": 800,
         "minWidth": 680,
         "minHeight": 430,

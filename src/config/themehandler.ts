@@ -27,7 +27,7 @@ export async function loadTheme(name: string) {
     processStyles(json);
 
     // load custom theme if it exists
-    //const path = await join(await homeDir(), ".nucleus", "extensions");
+    //const path = await join(await homeDir(), ".svara", "extensions");
     //if (await exists(path)) {
         //const custom_themes = await readDir(path);
     //}

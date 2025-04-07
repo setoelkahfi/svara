@@ -39,9 +39,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: v__VERSION__-alpha # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: "Nucleus v__VERSION__-alpha"
+          releaseName: "Svara v__VERSION__-alpha"
           releaseBody: |
-            Please refer to [the contribution guidelines](https://github.com/mellobacon/Nucleus/blob/master/CONTRIBUTING.md#submitting-issues) for info on submitting bug reports.
+            Please refer to [the contribution guidelines](https://github.com/setoelkahfi/svara/blob/master/CONTRIBUTING.md#submitting-issues) for info on submitting bug reports.
             
             ### *Will have bugs/missing/incomplete features.*
           releaseDraft: true

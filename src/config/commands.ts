@@ -118,7 +118,7 @@ export const commands = {
     },
     "fullscreen": {
         "keybind": "F11",
-        //"disabled": "true",
+        "disabled": "true",
         "command": async () => {
             if (await appWindow.isFullscreen()) {
                 appWindow.setFullscreen(false);

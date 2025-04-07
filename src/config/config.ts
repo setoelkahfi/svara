@@ -85,7 +85,7 @@ export async function loadDefaultSettings() {
     )
 
     await getShortcuts();
-    await loadTheme(await appSettings.get("nucleus.theme"));
+    await loadTheme(await appSettings.get("svara.theme"));
 
     appSettings.onKeyChange("editor.fontSize", (value: number) => {
         setEditorFontSize(value);
@@ -99,17 +99,17 @@ export async function loadDefaultSettings() {
     appSettings.onKeyChange("editor.tabSize", (value: number) => {
         setEditorTabSize(value);
     })
-    appSettings.onKeyChange("nucleus.theme", (value: string) => {
+    appSettings.onKeyChange("svara.theme", (value: string) => {
         loadTheme(value);
     })
-    appSettings.onKeyChange("nucleus.useExternalTerminal", (value: string) => {
+    appSettings.onKeyChange("svara.useExternalTerminal", (value: string) => {
         setTerminalState(value);
     })
     appSettings.onKeyChange("terminal.internal", (value: any) => {
         termOptions.set(value);
         updateTermOptions();
     })
-    setTerminalState(await appSettings.get("nucleus.useExternalTerminal"))
+    setTerminalState(await appSettings.get("svara.useExternalTerminal"))
     termOptions.set(await appSettings.get("terminal.internal"));
     info("Settings initialized", {file: "config.ts", line: 97});
 }

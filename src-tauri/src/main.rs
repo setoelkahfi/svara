@@ -326,7 +326,7 @@ fn configure_log() -> TauriPlugin<Wry> {
 
 fn configure_log_path(app: &mut App) {
     let app_log_dir = tauri::api::path::app_log_dir(&app.config()).unwrap();
-    let old_log_path = app_log_dir.join("nucleus.log");
+    let old_log_path = app_log_dir.join("svara.log");
     if !Path::exists(&old_log_path) {
         return;
     }
@@ -335,7 +335,7 @@ fn configure_log_path(app: &mut App) {
     let time = time::OffsetDateTime::now_utc()
         .format(&format)
         .unwrap();
-    let log_name = format!("nucleus_log-{}.log", time);
+    let log_name = format!("svara_log-{}.log", time);
     
     // changing the default log name to something more meaningful
     let new_log_path = app_log_dir.join(log_name);
@@ -349,14 +349,14 @@ fn load_settings(app: &mut App) {
 
     let default_settings = serde_json::json!(
         {
-            "nucleus.theme": "Dark",
+            "svara.theme": "Dark",
             "editor.fontSize": 14,
             "editor.fontFamily": "monospace",
             "editor.lineHeight": 1.3,
             "editor.tabSize": 4,
             "editor.autosave": false,
-            "nucleus.showKeybinds": false,
-            "nucleus.useExternalTerminal": false,
+            "svara.showKeybinds": false,
+            "svara.useExternalTerminal": false,
             "terminal.external.profile": "powershell",
             "terminal.internal": {
                 "profile": "powershell",

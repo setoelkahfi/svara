@@ -26,7 +26,7 @@
     <div class="content">
         <div class="logo"></div>
 
-        <h1>Nucleus</h1>
+        <h1>Svara</h1>
 
         <div class="quick-actions">
             <button on:click={() => addEditorTab()} ><DocumentBlank /> New file</button>
